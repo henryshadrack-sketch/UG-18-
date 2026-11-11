@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ug18
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: UG18_DATA_DIR
+        value: /var/data
+      - key: UG18_ADMIN_TOKEN
+        generateValue: true
+      - key: PAYMENTS_ADMIN_TOKEN
+        generateValue: true
+    disk:
+      name: ug18-data
+      mountPath: /var/data
+      sizeGB: 1
